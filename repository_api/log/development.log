@@ -1,0 +1,189 @@
+  [1m[35m (0.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "repository_api_development"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mDROP DATABASE IF EXISTS "repository_api_test"[0m
+  [1m[35m (2514.2ms)[0m  [1m[35mCREATE DATABASE "repository_api_development" ENCODING = 'unicode'[0m
+  [1m[35m (699.1ms)[0m  [1m[35mCREATE DATABASE "repository_api_test" ENCODING = 'unicode'[0m
+  [1m[35m (74.1ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (126.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (54.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2017-09-19 11:33:49.624958"], ["updated_at", "2017-09-19 11:33:49.624958"]]
+  [1m[35m (40.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to DeviseCreateUsers (20170919113401)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (192.0ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (37.5ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170919113401"]]
+  [1m[35m (0.7ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (55.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOwners (20170919114857)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (149.9ms)[0m  [1m[35mCREATE TABLE "owners" ("id" serial primary key, "login" character varying, "owner_id_id" integer, "autentication_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1dc62e1933"
+FOREIGN KEY ("owner_id_id")
+  REFERENCES "owner_ids" ("id")
+)[0m
+  [1m[35m (0.1ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+Started GET "/api/v1/repositories" for 127.0.0.1 at 2017-09-19 09:37:01 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.0.5) lib/active_record/migration.rb:573:in `check_pending!'
+activerecord (5.0.5) lib/active_record/migration.rb:549:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/callbacks.rb:38:in `block in call'
+activesupport (5.0.5) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.5) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.5) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.5) lib/action_dispatch/middleware/callbacks.rb:36:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.5) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.5) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.5) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.5) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (9.3ms)
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (183.0ms)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOwners (20170919114857)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (138.3ms)[0m  [1m[35mCREATE TABLE "owners" ("id" serial primary key, "login" character varying, "owner_id_id" integer, "autentication_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1dc62e1933"
+FOREIGN KEY ("owner_id_id")
+  REFERENCES "owner_ids" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+  [1m[35m (15.8ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (168.8ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOwners (20170919114857)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (420.7ms)[0m  [1m[35mCREATE TABLE "owners" ("id" serial primary key, "login" character varying, "owner_id_id" integer, "autentication_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1dc62e1933"
+FOREIGN KEY ("owner_id_id")
+  REFERENCES "owner_ids" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+Started GET "/" for 127.0.0.1 at 2017-09-19 11:53:14 -0300
+  [1m[36mActiveRecord::SchemaMigration Load (2.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  
+ActiveRecord::PendingMigrationError (
+
+Migrations are pending. To resolve this issue, run:
+
+        bin/rails db:migrate RAILS_ENV=development
+
+):
+  
+activerecord (5.0.5) lib/active_record/migration.rb:573:in `check_pending!'
+activerecord (5.0.5) lib/active_record/migration.rb:549:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/callbacks.rb:38:in `block in call'
+activesupport (5.0.5) lib/active_support/callbacks.rb:97:in `__run_callbacks__'
+activesupport (5.0.5) lib/active_support/callbacks.rb:750:in `_run_call_callbacks'
+activesupport (5.0.5) lib/active_support/callbacks.rb:90:in `run_callbacks'
+actionpack (5.0.5) lib/action_dispatch/middleware/callbacks.rb:36:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/remote_ip.rb:79:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/debug_exceptions.rb:49:in `call'
+web-console (3.5.1) lib/web_console/middleware.rb:135:in `call_app'
+web-console (3.5.1) lib/web_console/middleware.rb:28:in `block in call'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `catch'
+web-console (3.5.1) lib/web_console/middleware.rb:18:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/show_exceptions.rb:31:in `call'
+railties (5.0.5) lib/rails/rack/logger.rb:36:in `call_app'
+railties (5.0.5) lib/rails/rack/logger.rb:24:in `block in call'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:69:in `block in tagged'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:26:in `tagged'
+activesupport (5.0.5) lib/active_support/tagged_logging.rb:69:in `tagged'
+railties (5.0.5) lib/rails/rack/logger.rb:24:in `call'
+sprockets-rails (3.2.1) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/request_id.rb:24:in `call'
+rack (2.0.3) lib/rack/method_override.rb:22:in `call'
+rack (2.0.3) lib/rack/runtime.rb:22:in `call'
+activesupport (5.0.5) lib/active_support/cache/strategy/local_cache_middleware.rb:28:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/executor.rb:12:in `call'
+actionpack (5.0.5) lib/action_dispatch/middleware/static.rb:136:in `call'
+rack (2.0.3) lib/rack/sendfile.rb:111:in `call'
+railties (5.0.5) lib/rails/engine.rb:522:in `call'
+puma (3.10.0) lib/puma/configuration.rb:225:in `call'
+puma (3.10.0) lib/puma/server.rb:605:in `handle_request'
+puma (3.10.0) lib/puma/server.rb:437:in `process_client'
+puma (3.10.0) lib/puma/server.rb:301:in `block in run'
+puma (3.10.0) lib/puma/thread_pool.rb:120:in `block in spawn_thread'
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_source.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_source.html.erb (2.3ms)
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendering /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /usr/local/opt/rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/actionpack-5.0.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (172.2ms)
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.9ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOwners (20170919114857)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (126.4ms)[0m  [1m[35mCREATE TABLE "owners" ("id" serial primary key, "login" character varying, "owner_id_id" integer, "autentication_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1dc62e1933"
+FOREIGN KEY ("owner_id_id")
+  REFERENCES "owner_ids" ("id")
+)[0m
+  [1m[35m (0.2ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
+  [1m[35m (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (41.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+  [1m[35m (41.7ms)[0m  [1m[34mSELECT pg_try_advisory_lock(4706446738897287090);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateOwners (20170919114857)
+  [1m[35m (40.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (794.3ms)[0m  [1m[35mCREATE TABLE "owners" ("id" serial primary key, "login" character varying, "owner_id_id" integer, "autentication_token" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1dc62e1933"
+FOREIGN KEY ("owner_id_id")
+  REFERENCES "owner_ids" ("id")
+)[0m
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(4706446738897287090)[0m
